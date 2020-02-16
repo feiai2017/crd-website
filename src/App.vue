@@ -1,19 +1,19 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-	<SignIn 
-		v-if="isSigned == true ? false : true" 
-		msg="SignIn"
-	/>
-	<List 
-		v-if="isSigned" 
-		msg="List"
-	/>
-	<SignOut
-		v-if="isSigned"
-		msg="SignOut"
-	/>
-  </div>
+	<div id="app">
+		<img alt="Vue logo" src="./assets/logo.png">
+		<SignIn 
+			v-if="isSigned == true ? false : true" 
+			msg="SignIn"
+		/>
+		<List 
+			v-if="isSigned" 
+			msg="List"
+		/>
+		<SignOut
+			v-if="isSigned"
+			msg="SignOut"
+		/>
+	</div>
 </template>
 
 <script>
@@ -28,25 +28,21 @@ export default {
 		SignOut,
 		List
 	},
-	props: {
-		a2: {
-			type: Boolean,
-			default: true,
-		}
-	},
 	data:function() {
 		return {
-			abc: {
-				a1: true,
-				a2: true,
-			},
 			isSigned: false,
 		}
 	},
 	mounted:function() {
-		console.log("load:" + this.$getConst('signed'))
+		var t = this.$getConst('cookie_name')
+		var tmp = this.$cookie.get(t)
+		if (tmp != null) {
+			this.isSigned = true
+		} 
 	},
 	methods: {
+		checkIsSigned: function() {
+		},
 	}
 }
 </script>

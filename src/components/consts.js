@@ -1,6 +1,5 @@
 const Text = {
-	cookie_name: "sessionStore",
-	signed: false,
+	cookie_name: 'sessionStore', 
 };
 Text.install = function (Vue) {
 	Vue.prototype.$getConst = (key) => {

@@ -11,9 +11,3 @@ Vue.use(VueCookie).use(Qs).use(Consts);
 new Vue({
   render: h => h(App),
 }).$mount('#app');
-
-// console.log("data-a1:" + App.data().abc.a1);
-
-// App.data().abc.a1 = false;
-
-// console.log("data-a1:" + App.data().abc.a1);
