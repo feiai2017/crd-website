@@ -13,8 +13,6 @@
 		v-if="isSigned"
 		msg="SignOut"
 	/>
-
-	<!-- <div>{{ Signed }}</div> -->
   </div>
 </template>
 

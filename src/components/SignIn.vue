@@ -32,14 +32,23 @@ export default {
 	},
 	methods: {
 		SignInBtn: function() {
-			console.log("signed-before-111")
 			console.log("signed-before:" + this.$parent.isSigned);
-			console.log("signed-before-222")
-			if (Math.random() > 0.5) {
-				this.$parent.isSigned = true;
-			} else {
-				this.$parent.isSigned = false;
-			}
+			const axios = require('axios');
+			// axios.default.withCredentials = true;
+			const qs = require('qs');		
+			var data = qs.stringify({
+				account: this.account,
+				password: this.pwd
+			});
+			axios.post('http://127.0.0.1:7080/signin', data, {withCredentials: true})
+			.then(function (response) {
+				console.log(response);
+				console.log("cookie:", response.cookies)
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+			
 			console.log("signed-after:" +   this.$parent.isSigned);
 			// console.log("cookie-name:" + this.$getConst('cookie_name'));
 			// var a = this.$cookie.get(this.$getConst('cookie_name'));
