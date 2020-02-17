@@ -13,11 +13,10 @@ export default {
 			console.log("sign out");
 			var that = this
 			const axios = require('axios')
+			var _signOut = this.$getAPI('SignOut')
 			axios.get(
-				"http://127.0.0.1:7080/signout",
-				{
-					withCredentials: true,
-				}
+				_signOut,
+				that.httpConf,
 			).then(function (response) {
 				console.log(response)
 				if (response.status != 200) {

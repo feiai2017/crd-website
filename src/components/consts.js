@@ -9,6 +9,6 @@ Text.install = function (Vue) {
 	};
 	Vue.prototype.$setConst = (key, value) => {
 		Text[key] = value;
-	};	
+	};
 };
 export default Text;

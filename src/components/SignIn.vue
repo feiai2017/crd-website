@@ -47,12 +47,11 @@ export default {
 				password: this.pwd
 			});
 			var that = this
+			var _signIn = this.$getAPI('SignIn')
 			axios.post(
-				'http://127.0.0.1:7080/signin', 
+				_signIn,
 				data, 
-				{
-					withCredentials: true,
-				},
+				that.httpConf,
 			).then(function (response) {
 				console.log(response);
 				if (response.status != 200) {
