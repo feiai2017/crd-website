@@ -40,15 +40,13 @@ export default {
 	},
 	methods: {
 		SignInBtn: function() {
-			console.log("signed-before:" + this.$parent.isSigned);
-			const axios = require('axios');
-			const qs = require('qs');		
+			const axios = require('axios')
+			const qs = require('qs')	
 			var data = qs.stringify({
 				account: this.account,
 				password: this.pwd
 			});
-			var ok = false;
-			var that = this;
+			var that = this
 			axios.post(
 				'http://127.0.0.1:7080/signin', 
 				data, 
@@ -56,17 +54,22 @@ export default {
 					withCredentials: true,
 				},
 			).then(function (response) {
-				console.log("event:", event);
 				console.log(response);
-				console.log("ok-1:", ok)
-				ok = true;
-				console.log("ok-2:", ok)
+				if (response.status != 200) {
+					console.log("response.status:", response.status);
+					return;
+				}
+				var error_code = response.data.error_code
+				var code_success = that.$getConst('code_success')
+				var code_signed = that.$getConst('code_signed')
+				if (error_code == null || (error_code != code_success && error_code != code_signed)) {
+					// todo: need dialogue or error notice
+					console.log("error_code:", error_code);
+					return;
+				}
+				that.$parent.isSigned = true;
 			}).catch(function (error) {
 				console.log(error);
-			}).finally(function () {
-				if (ok == true) {
-					that.$parent.isSigned = true;
-				}
 			});
 		},
 	},

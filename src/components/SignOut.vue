@@ -11,10 +11,32 @@ export default {
 	methods: {
 		SignOutBtn: function() {
 			console.log("sign out");
-			var tmp = this.$getConst('cookie_name');
-			console.log("cookie_name:", tmp);
-			this.$cookie.delete(tmp);
-			this.$parent.isSigned = false;
+			var that = this
+			const axios = require('axios')
+			axios.get(
+				"http://127.0.0.1:7080/signout",
+				{
+					withCredentials: true,
+				}
+			).then(function (response) {
+				console.log(response)
+				if (response.status != 200) {
+					console.log("response.status:", response.status);
+					return;
+				}
+				var tmp = that.$getConst('cookie_name');
+				var code_success = that.$getConst('code_success')
+				var error_code = response.data.error_code
+				if (error_code == null || error_code != code_success) {
+					// todo: need dialogue or error notice
+					console.log("error_code:", error_code);
+					return;
+				}
+				that.$cookie.delete(tmp);
+				that.$parent.isSigned = false;
+			}).catch(function (error) {
+				console.log(error);
+			});
 		},
 	},
 }
